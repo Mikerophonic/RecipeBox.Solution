@@ -32,6 +32,13 @@ namespace RecipeBox.Controllers
                       .ToArray();
           model.Add("recipes", recipes);
         }
+        if (currentUser != null)
+        {
+          Tag[] tags = _db.Tags
+            .Where(entry => entry.User.Id == currentUser.Id)
+            .ToArray();
+          model.Add("tags", tags);
+        }
         return View(model);
       }
     }
