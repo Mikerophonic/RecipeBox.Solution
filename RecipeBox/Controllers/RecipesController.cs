@@ -45,7 +45,7 @@ namespace RecipeBox.AddControllersWithViews
     {
         if (!ModelState.IsValid)
         {
-            ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Title")
+            ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Title");
             return View(recipe);
         }
         else

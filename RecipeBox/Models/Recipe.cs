@@ -11,5 +11,7 @@ namespace RecipeBox.Models
         public int Rating { get; set; }
         public List<RecipeTag> JoinEntities { get; }
         public ApplicationUser User { get; set; }  
+        public Tag Tag { get; set; }
+        public int TagId { get; set; }
     }
 }

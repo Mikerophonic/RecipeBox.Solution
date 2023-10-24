@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using system.Security.Claims;
+using System.Security.Claims;
 
 namespace RecipeBox.Controllers
 {
   public class HomeController : Controller
   {
     private readonly RecipeBoxContext _db;
-    private readonly UseManager<ApplicationUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public HomeController(UserManager<ApplicationUser> userManager, RecipeBoxContext db)
     {
@@ -22,7 +22,7 @@ namespace RecipeBox.Controllers
     [HttpGet("/")]
     public async Task<ActionResult> Index()
     {
-      Recipe[] recs = _db.Recipes.ToArra();
+      Recipe[] recs = _db.Recipes.ToArray();
       Dictionary<string,object[]> model = new Dictionary<string, object[]>();
       model.Add("recipes", recs);
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -34,7 +34,7 @@ namespace RecipeBox.Controllers
                     .ToArray();
         model.Add("tags", tags);
       }
-      return View(Model)
+      return View(model);
     }
   }
 }
