@@ -8,7 +8,6 @@
 <h2>Recipe Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>  
-<h3>@Html.DisplayNameFor(model => model.Tag): @Html.DisplayFor(model => model.Tag.Title)</h3>
 
 @if(@Model.JoinEntities.Count == 0)
 {
@@ -16,7 +15,7 @@
 }
 else
 {
-  <h4>This item has the following tags:</h4>
+  <h4>This recipe has the following tags:</h4>
   <ul>
     @foreach(RecipeTag join in Model.JoinEntities)
     {

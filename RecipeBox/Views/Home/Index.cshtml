@@ -4,43 +4,31 @@
 
 @using RecipeBox.Models;
 
-<h1>Welcome to RecipeBox!</h1>
+<h1>Welcome to the Recipe Box!</h1>
 
-<hr />
-
-<h4>Recipes</h4>
-@if (Model["recipes"].Length == 0)
-{
-  <p>No recipes have been added yet!</p>
-} 
-<ul>
-  @foreach (Recipe rec in Model["recipes"])
-  {
-    <li>@Html.ActionLink(@rec.Title, "Details", "Recipes", new { id = @rec.RecipeId})</li>
-  }
-</ul>
+<hr>
 
 @if (User.Identity.IsAuthenticated)
 {
-  <h4>Tags for @User.Identity.Name</h4>
-  @if (Model["tags"].Length == 0)
+  <h4>Recipes for @User.Identity.Name</h4>
+  @if (Model["recipes"].Length == 0)
   {
-    <p>No tags have been added yet!</p>
+    <p>No recipes have been added yet!</p>
   } 
   <ul>
-    @foreach (Tag tag in Model["tags"])
+    @foreach (Recipe recipe in Model["recipes"])
     {
-      <li>@Html.ActionLink(@tag.Title, "Details", "Tags", new { id = @tag.TagId})</li>
+      <li>@Html.ActionLink(@recipe.Title, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
     }
   </ul>
 }
 else
 {
-  <h4>Tags</h4>
-  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your tags.</p>
+  <h4>Recipes</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your recipes.</p>
 }
 
-<hr />
+<hr>
 
 <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p> 
 <p>@Html.ActionLink("Manage tags", "Index", "Tags")</p>

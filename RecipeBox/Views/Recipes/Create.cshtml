@@ -4,9 +4,8 @@
 
 @model RecipeBox.Models.Recipe
 
-<h4>Add a new item</h4>
+<h4>Add a new recipe</h4>
 
-<p>@Html.ValidationMessageFor(model => model.TagId, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
 <p>@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
 
 @using (Html.BeginForm())
@@ -14,8 +13,8 @@
   @Html.LabelFor(model => model.Title)
   @Html.TextBoxFor(model => model.Title)
 
-  @Html.LabelFor(model => model.Tag)
-  @Html.DropDownList("TagId")
+ // @Html.LabelFor(model => model.Tag)
+ // @Html.DropDownList("TagId")
 
   <input type="submit" value="Add new recipe" class="btn btn-default" />
 }

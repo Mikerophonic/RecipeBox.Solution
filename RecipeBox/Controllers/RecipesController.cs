@@ -29,7 +29,7 @@ namespace RecipeBox.AddControllersWithViews
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       List<Recipe> userRecipes = _db.Recipes
                           .Where(entry => entry.User.Id == currentUser.Id)
-                          .Include(recipe => recipe.Tag)
+                          // .Include(recipe => recipe.Tag)
                           .ToList();
       return View(userRecipes);
     }
@@ -62,7 +62,7 @@ namespace RecipeBox.AddControllersWithViews
     public ActionResult Details(int id)
     {
       Recipe thisRecipe = _db.Recipes
-          .Include(recipe => recipe.Tag)
+          // .Include(recipe => recipe.Tag)
           .Include(recipe => recipe.JoinEntities)
           .ThenInclude(join => join.Tag)
           .FirstOrDefault(recipe => recipe.RecipeId == id);
