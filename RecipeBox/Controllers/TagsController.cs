@@ -24,10 +24,17 @@ namespace RecipeBox.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      return View(_db.Tags.ToList());
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Tag> userTags = _db.Tags
+                          .Where(entry => entry.User.Id == currentUser.Id)
+                          // .Include(recipe => recipe.Tag)
+                          .ToList();
+      return View(userTags);
     }
+
 
     public ActionResult Details(int id)
     {
