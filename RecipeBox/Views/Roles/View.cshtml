@@ -1,3 +1,7 @@
+@{
+  Layout = "_Layout";
+}
+
 @using RecipeBox.Models;
 
 @model RoleEdit
@@ -21,7 +25,7 @@
         }
         else
         {
-            @foreach (AppUser user in Model.NonMembers)
+            @foreach (ApplicationUser user in Model.NonMembers)
             {
                 <tr>
                     <td>@user.UserName</td>
@@ -41,7 +45,7 @@
         }
         else
         {
-            @foreach (AppUser user in Model.Members)
+            @foreach (ApplicationUser user in Model.Members)
             {
                 <tr>
                     <td>@user.UserName</td>

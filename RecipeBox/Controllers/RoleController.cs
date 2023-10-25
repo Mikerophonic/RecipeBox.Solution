@@ -15,13 +15,18 @@ namespace RecipeBox.Controllers
     {
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
-        public RoleController(RoleManager<IdentityRole> roleMgr)
+        public RoleController(RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMgr)
         {
             roleManager = roleMgr;
-            userManager = userMrg;
+            userManager = userMgr;
         }
  
-        public ViewResult Index() => View(roleManager.Roles);
+        // public ViewResult Index() => View(roleManager.Roles);
+
+        public async Task<ActionResult> Index()
+         {
+          return RedirectToAction("Index", "Roles");
+          }
  
         private void Errors(IdentityResult result)
         {
@@ -64,9 +69,9 @@ namespace RecipeBox.Controllers
         public async Task<IActionResult> Update(string id)
         {
             IdentityRole role = await roleManager.FindByIdAsync(id);
-            List<AppUser> members = new List<AppUser>();
-            List<AppUser> nonMembers = new List<AppUser>();
-            foreach (AppUser user in userManager.Users)
+            List<ApplicationUser> members = new List<ApplicationUser>();
+            List<ApplicationUser> nonMembers = new List<ApplicationUser>();
+            foreach (ApplicationUser user in userManager.Users)
             {
                 var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
@@ -87,7 +92,7 @@ namespace RecipeBox.Controllers
             {
                 foreach (string userId in model.AddIds ?? new string[] { })
                 {
-                    AppUser user = await userManager.FindByIdAsync(userId);
+                    ApplicationUser user = await userManager.FindByIdAsync(userId);
                     if (user != null)
                     {
                         result = await userManager.AddToRoleAsync(user, model.RoleName);
@@ -97,7 +102,7 @@ namespace RecipeBox.Controllers
                 }
                 foreach (string userId in model.DeleteIds ?? new string[] { })
                 {
-                    AppUser user = await userManager.FindByIdAsync(userId);
+                    ApplicationUser user = await userManager.FindByIdAsync(userId);
                     if (user != null)
                     {
                         result = await userManager.RemoveFromRoleAsync(user, model.RoleName);
